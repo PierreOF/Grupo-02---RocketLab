@@ -17,86 +17,128 @@ Antes de iniciar:
 
 1. **Fivetran** configurado e sincronizando dados do Supabase para Databricks
 2. **Schema Landing** `v_credit.postgres_public` deve existir e conter dados
-3. **Permissoes** necessarias no Databricks (criar schemas, tabelas, views)
+3. **Permissoes** necessarias no Databricks (criar schemas, tabelas, views, jobs)
 4. **Cluster Databricks** ativo e configurado
+5. **Databricks CLI** instalado (para deploy dos jobs via YAML)
 
 ---
 
 ## Fase 1: Setup Inicial (EXECUTAR UMA VEZ)
 
-Esta fase cria toda a infraestrutura de dados (schemas, tabelas, views). Deve ser executada apenas:
+Esta fase configura toda a infraestrutura do projeto. Deve ser executada apenas:
 - Na primeira vez que o projeto e configurado
 - Quando resetar o ambiente completo
 - Quando adicionar novas tabelas ao modelo
 
-### 1.1 Inicializacao
+### Passo 1: Inicializacao do Catalogo
 
 **Notebook**: `init.ipynb`
 
+**Como executar**: Manualmente no Databricks Workspace
+
 **O que faz**: Cria catalogo `v_credit` e schemas (bronze, silver, gold, curated)
 
-### 1.2 DDL Bronze
+### Passo 2: Deploy dos Jobs no Databricks
 
-**Notebook**: `ddl/bronze/ddl_tabelas_bronze.ipynb`
+**Localizacao**: Pasta `pipeline/`
 
-**O que faz**: Cria todas as tabelas Bronze com schema Delta Lake
+**Como executar**: Usar Databricks CLI ou Asset Bundles para criar os jobs a partir dos arquivos YAML:
 
-### 1.3 DDL Silver
+```bash
+# Navegar ate a pasta do projeto
+cd /caminho/para/Grupo-02---RocketLab
 
-**Notebooks**: `ddl/silver/ddl_tb_*.ipynb` e `ddl/silver/ddl_tb_*_invalidos.ipynb`
+```
 
-**O que faz**:
-- Cria tabelas Silver principais
-- Cria tabelas de auditoria (*_invalidos)
+**Jobs criados**:
 
-### 1.4 DDL Gold
+1. **V-Credit DDL Pipeline** - Job orquestrador do DDL (executar UMA VEZ)
+   - V-Credit DDL - 01 Bronze Layer
+   - V-Credit DDL - 02 Silver Layer
+   - V-Credit DDL - 03 Gold Layer
 
-**Notebooks**: `ddl/gold/ddl_dm_*.ipynb` e `ddl/gold/ddl_ft_*.ipynb`
+2. **V-Credit SRC Pipeline** - Job orquestrador de carga diaria (AUTOMATIZADO)
+   - V-Credit SRC - 01 Bronze Layer
+   - V-Credit SRC - 02 Silver Layer
+   - V-Credit SRC - 03 Gold Layer
+   - V-Credit SRC - 04 Curated Layer
 
-**O que faz**:
-- Cria dimensoes (dm_*)
-- Cria fatos (ft_*)
+### Passo 3: Executar DDL Pipeline (UMA VEZ)
 
-### 1.5 DDL Curated
+**Job**: `V-Credit DDL Pipeline`
 
-**Notebooks**: `src/curated/vw_*.ipynb`
+**Como executar**: Trigger manual no Databricks Workflows UI
 
-**O que faz**: Cria views apontando para tabelas Gold
+**O que faz**: Orquestra a criacao de todas as tabelas e views:
 
-**Nota sobre ordem**: Nao e necessario executar em ordem especifica, os notebooks DDL sao idependêntes (podem ser re-executados sem problemas).
+```
+V-Credit DDL Pipeline
+  ↓
+  ├─ Bronze Layer: Cria tabelas Bronze (Delta Lake)
+  ├─ Silver Layer: Cria tabelas Silver + tabelas de auditoria (*_invalidos)
+  └─ Gold Layer: Cria dimensoes (dm_*) e fatos (ft_*)
+```
+
+**Importante**: Este job deve ser executado **apenas uma vez** no setup inicial ou quando houver mudancas de schema.
 
 ---
 
 ## Fase 2: Pipeline Diario (AUTOMATIZADO)
 
-Esta fase processa dados diariamente atraves de um pipeline automatizado (Databricks Workflows).
+Esta fase processa dados diariamente atraves do job **V-Credit SRC Pipeline**.
 
-### Frequencia de Execucao
+### Configuracao do Agendamento
 
-| Processo | Frequencia | Horario Sugerido |
-|----------|------------|------------------|
-| Fivetran Sync | Continuo (CDC) | 24/7 |
-| Pipeline Databricks | Diario | 02:00 AM |
+**Job**: `V-Credit SRC Pipeline`
 
-### Fluxo do Pipeline Diario
+**Frequencia Recomendada**: Diario (02:00 AM)
+
+**Como agendar**:
+1. Acessar Databricks Workflows UI
+2. Selecionar job `V-Credit SRC Pipeline`
+3. Configurar trigger agendado (cron: `0 2 * * *`)
+
+### Fluxo do Pipeline SRC
+
+O job `V-Credit SRC Pipeline` orquestra automaticamente 4 camadas com dependencias:
 
 ```
-1. BRONZE INGESTION
-   → src/bronze/ingestion_landing_to_bronze.ipynb
-   (Landing → Bronze)
-
-2. SILVER TRANSFORMATION
-   → src/silver/src_tb_*.ipynb (todos os notebooks)
-   (Bronze → Silver com validacao)
-
-3. GOLD DIMENSIONS
-   → src/gold/src_dm_*.ipynb (todos os notebooks)
-   (Silver → Gold Dimensions)
-
-4. GOLD FACTS
-   → src/gold/src_ft_*.ipynb (todos os notebooks)
-   (Silver → Gold Facts)
-
+V-Credit SRC Pipeline (Diario)
+  ↓
+  ├─ 01 Bronze Layer (Landing → Bronze)
+  │   └─ ingestion_landing_to_bronze.ipynb
+  │
+  ├─ 02 Silver Layer (Bronze → Silver + Validacao) [depende: Bronze Layer]
+  │   ├─ src_tb_atendente.ipynb
+  │   ├─ src_tb_cliente.ipynb
+  │   ├─ src_tb_canal.ipynb
+  │   ├─ src_tb_motivo.ipynb
+  │   ├─ src_tb_custo_chamado.ipynb
+  │   ├─ src_tb_pesquisa.ipynb
+  │   ├─ src_tb_chamado_log.ipynb
+  │   └─ src_tb_chamado.ipynb
+  │
+  ├─ 03 Gold Layer (Silver → Star Schema) [depende: Silver Layer]
+  │   ├─ Dimensoes:
+  │   │   ├─ src_dm_atendente.ipynb
+  │   │   ├─ src_dm_cliente.ipynb
+  │   │   ├─ src_dm_canal.ipynb
+  │   │   ├─ src_dm_motivo.ipynb
+  │   │   └─ src_dm_chamado.ipynb
+  │   └─ Fatos:
+  │       ├─ src_ft_atendimento_geral.ipynb
+  │       ├─ src_ft_custo_operacional.ipynb
+  │       └─ src_ft_performance_agente.ipynb
+  │
+  └─ 04 Curated Layer (Gold → Views Consumo) [depende: Gold Layer]
+      ├─ vw_dm_atendente.ipynb
+      ├─ vw_dm_cliente.ipynb
+      ├─ vw_dm_canal.ipynb
+      ├─ vw_dm_motivo.ipynb
+      ├─ vw_dm_chamado.ipynb
+      ├─ vw_ft_atendimento_geral.ipynb
+      ├─ vw_ft_custo_operacional.ipynb
+      └─ vw_ft_performance_agente.ipynb
 ```
 
 ### Caracteristicas do Pipeline
@@ -104,43 +146,16 @@ Esta fase processa dados diariamente atraves de um pipeline automatizado (Databr
 1. **Idempotencia**: Pode ser re-executado sem gerar duplicatas (usa MERGE)
 2. **Incremental**: Silver processa apenas `max(ingestion_timestamp)` do Bronze
 3. **Auditoria Automatica**: Registros invalidos vao automaticamente para tabelas `*_invalidos`
+4. **Dependencias Automaticas**: Cada camada aguarda a anterior completar com sucesso
+5. **Paralelizacao**: Tasks dentro da mesma camada rodam em paralelo
 
----
+### Monitoramento
 
-## Orquestracao com Databricks Workflows
-
-### Estrutura do Workflow
-
-```yaml
-Pipeline V-Credit (Diario - 02:00 AM):
-
-  Task Group 1: Bronze
-    - ingestion_landing_to_bronze
-
-  Task Group 2: Silver (depende de Task Group 1)
-    - src_tb_atendente
-    - src_tb_cliente
-    - src_tb_canal
-    - src_tb_motivo
-    - src_tb_custo_chamado
-    - src_tb_pesquisa
-    - src_tb_chamado_log
-    - src_tb_chamado
-
-  Task Group 3: Gold Dimensions (depende de Task Group 2)
-    - src_dm_atendente
-    - src_dm_cliente
-    - src_dm_canal
-    - src_dm_motivo
-    (Podem rodar em paralelo)
-
-  Task Group 4: Gold Facts (depende de Task Group 3)
-    - src_ft_atendimento_geral
-    - src_ft_custo_operacional
-    - src_ft_performance_agente
-    (Podem rodar em paralelo)
-```
-
+**Databricks Workflows UI** exibe:
+- Status de cada task (Success, Failed, Running)
+- Tempo de execucao de cada notebook
+- Logs de erro detalhados
+- Historico de execucoes
 
 ---
 
