@@ -9,8 +9,6 @@ Este documento registra os principais aprendizados tecnicos, de negocio e metodo
 - Marcus Pierre Melo Monteiro
 - Pedro de Araújo Duarte Gusmao
 
-**Periodo**: 2024-2025
-
 ---
 
 ## Contexto do Projeto
