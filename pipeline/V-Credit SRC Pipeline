@@ -1,0 +1,25 @@
+resources:
+  jobs:
+    V_Credit_SRC_Pipeline:
+      name: V-Credit SRC Pipeline
+      tasks:
+        - task_key: Bronze_Layer
+          run_job_task:
+            job_id: 202013821886892
+        - task_key: Silver_Layer
+          depends_on:
+            - task_key: Bronze_Layer
+          run_job_task:
+            job_id: 482247173714430
+        - task_key: Gold_Layer
+          depends_on:
+            - task_key: Silver_Layer
+          run_job_task:
+            job_id: 363458280544963
+        - task_key: Curated_Layer
+          depends_on:
+            - task_key: Gold_Layer
+          run_job_task:
+            job_id: 195634859096218
+      queue:
+        enabled: true

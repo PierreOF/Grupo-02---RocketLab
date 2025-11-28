@@ -1,0 +1,50 @@
+resources:
+  jobs:
+    V_Credit_DDL_03_Gold_Layer:
+      name: V-Credit DDL - 03 Gold Layer
+      email_notifications:
+        on_success:
+          - joaogabrielaraujo30@gmail.com
+        on_failure:
+          - joaogabrielaraujo30@gmail.com
+      tasks:
+        - task_key: ddl_ft_atendimento_geral
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/ddl/gold/ddl_ft_atendimento_geral
+            source: WORKSPACE
+        - task_key: ddl_ft_custo_operacional
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/ddl/gold/ddl_ft_custo_operacional
+            source: WORKSPACE
+        - task_key: ddl_ft_performance_agente
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/ddl/gold/ddl_ft_performance_agente
+            source: WORKSPACE
+        - task_key: ddl_dm_atendente
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/ddl/gold/ddl_dm_atendente
+            source: WORKSPACE
+        - task_key: ddl_dm_canal
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/ddl/gold/ddl_dm_canal
+            source: WORKSPACE
+        - task_key: ddl_dm_chamado
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/ddl/gold/ddl_dm_chamado
+            source: WORKSPACE
+          environment_key: Default
+        - task_key: ddl_dm_cliente
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/ddl/gold/ddl_dm_cliente
+            source: WORKSPACE
+        - task_key: ddl_dm_motivo
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/ddl/gold/ddl_dm_motivo
+            source: WORKSPACE
+      queue:
+        enabled: true
+      environments:
+        - environment_key: Default
+          spec:
+            environment_version: "4"
+      performance_target: PERFORMANCE_OPTIMIZED

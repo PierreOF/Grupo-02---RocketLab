@@ -1,0 +1,47 @@
+resources:
+  jobs:
+    V_Credit_SRC_02_Silver_Layer:
+      name: V-Credit SRC - 02 Silver Layer
+      email_notifications:
+        on_success:
+          - joaogabrielaraujo30@gmail.com
+        on_failure:
+          - joaogabrielaraujo30@gmail.com
+      tasks:
+        - task_key: src_tb_atendente
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/silver/src_tb_atendente
+            source: WORKSPACE
+        - task_key: src_tb_canal
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/silver/src_tb_canal
+            source: WORKSPACE
+        - task_key: src_tb_chamado_log
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/silver/src_tb_chamado_log
+            source: WORKSPACE
+        - task_key: src_tb_cliente
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/silver/src_tb_cliente
+            source: WORKSPACE
+        - task_key: src_tb_custo_chamado
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/silver/src_tb_custo_chamado
+            source: WORKSPACE
+        - task_key: src_tb_motivo
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/silver/src_tb_motivo
+            source: WORKSPACE
+        - task_key: src_tb_pesquisa
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/silver/src_tb_pesquisa
+            source: WORKSPACE
+        - task_key: src_tb_chamado
+          depends_on:
+            - task_key: src_tb_motivo
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/silver/src_tb_chamado
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
