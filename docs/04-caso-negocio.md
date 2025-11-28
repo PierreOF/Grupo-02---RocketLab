@@ -35,9 +35,9 @@ Ao analisar a tabela **`ft_custo_operacional`** cruzada com **`dm_motivo`**:
 
 **Metricas**:
 - **Custo Total (amostra)**: ~R$ 12.800,00
-- **Desperdicio Identificado**: ~R$ 3.760,00
+- **Desperdicio Identificado**: ~R$ 3.400,00
   - Dinheiro gasto com motivos simples em canais caros
-- **Economia Potencial**: **29,3%** do orcamento
+- **Economia Potencial**: **26,2%** do orcamento
 
 ### O Grafico para o BI (A Prova)
 
@@ -49,7 +49,7 @@ Ao analisar a tabela **`ft_custo_operacional`** cruzada com **`dm_motivo`**:
 - **Destaque**: Pintar de **Vermelho** as barras de motivos automatizaveis
 
 **Insight para Stakeholder**:
-> "Se automatizarmos os Top 3 motivos, economizamos **29% do orcamento de atendimento**."
+> "Se automatizarmos os Top 3 motivos, economizamos **26% do orcamento de atendimento**."
 
 **Tabelas Utilizadas**:
 - `v_credit.gold.ft_custo_operacional`
@@ -86,9 +86,6 @@ Ao analisar a **`ft_atendimento_geral`**:
 **Visual 2**: Grafico de Linha de Tendencia
 - **Eixo X**: Tempo de Espera (agrupado em buckets: 0-2min, 2-5min, 5-10min, 10min+)
 - **Eixo Y**: CSAT Medio
-
-**Insight para Stakeholder**:
-> "Diretora, a queda nao e externa. **48% dos clientes estao esperando tempo demais**. Quando a espera passa de 5 minutos, o CSAT despenca para 2.0."
 
 **Tabelas Utilizadas**:
 - `v_credit.gold.ft_atendimento_geral`
@@ -148,7 +145,6 @@ Analisando a transicao de canais e a **`dm_cliente`**:
 **Metricas**:
 - **Taxa de Transbordo**: **38%**
   - De cada 10 chamados no bot, 4 ele falha e joga pro humano
-- **Faixa Etaria Critica**: Seniors (60+)
 
 ### O Grafico para o BI (A Prova)
 
@@ -192,7 +188,7 @@ Apresente os graficos nesta sequencia para construir a narrativa:
 #### 3. O Dinheiro (Financeiro)
 **Feche com o Business Case**
 
-> "Isso gera um desperdicio de **R$ 3.760** (na amostra) atendendo coisas simples. Se automatizarmos o 'Top 3 Motivos', economizamos **29% do orcamento**."
+> "Isso gera um desperdicio de **R$ 3.4** (na amostra) atendendo coisas simples. Se automatizarmos o 'Top 3 Motivos', economizamos **26% do orcamento**."
 
 **Visual**: Pareto de Custos por Motivo
 
