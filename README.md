@@ -7,7 +7,7 @@ Bem-vindo a documentacao completa do projeto de Data Lakehouse da V-Credit. Esta
 * [dicionário de dados](https://docs.google.com/spreadsheets/d/1A_ZCraoZs97ySkYHRmj2wAcLwEFpf-EljVoA4hD-2VU/edit?gid=1419684504#gid=1419684504)
 * [relatório das dailys](https://docs.google.com/document/d/16cR93gWBPUY5p74dm8d3jnf8Mi2HiF7qI5Q_kfNKUoc/edit?usp=sharing)
 * [Proposta de solução](https://docs.google.com/document/d/1nLOW8hzSt6CcC94RLKzp7kIRkY869Hcc0Z6qGIhWgUg/edit?tab=t.0)
-
+* [Trello](https://trello.com/invite/b/691f8bc73bf6e386d27d8642/ATTI9c410a14997fde7225dc873d44e3482027BD868E/pypynoel-rocketlab)
 
 ## Indice da Documentacao
 
