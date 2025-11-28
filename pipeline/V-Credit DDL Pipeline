@@ -1,0 +1,16 @@
+resources:
+  jobs:
+    V_Credit_DDL_Pipeline:
+      name: V-Credit DDL Pipeline
+      tasks:
+        - task_key: Bronze_Layer
+          run_job_task:
+            job_id: 326954031042976
+        - task_key: Silver_Layer
+          run_job_task:
+            job_id: 861781633829797
+        - task_key: Gold_Layer
+          run_job_task:
+            job_id: 958413376387937
+      queue:
+        enabled: true

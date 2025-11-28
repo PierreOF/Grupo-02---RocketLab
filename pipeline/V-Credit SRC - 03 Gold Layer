@@ -1,0 +1,54 @@
+resources:
+  jobs:
+    V_Credit_SRC_03_Gold_Layer:
+      name: V-Credit SRC - 03 Gold Layer
+      email_notifications:
+        on_success:
+          - joaogabrielaraujo30@gmail.com
+        on_failure:
+          - joaogabrielaraujo30@gmail.com
+      tasks:
+        - task_key: src_dm_atendente
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/gold/src_dm_atendente
+            source: WORKSPACE
+        - task_key: src_dm_canal
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/gold/src_dm_canal
+            source: WORKSPACE
+        - task_key: src_dm_cliente
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/gold/src_dm_cliente
+            source: WORKSPACE
+        - task_key: src_dm_motivo
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/gold/src_dm_motivo
+            source: WORKSPACE
+        - task_key: src_dm_chamado
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/gold/src_dm_chamado
+            source: WORKSPACE
+        - task_key: src_ft_performance_agente
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/gold/src_ft_performance_agente
+            source: WORKSPACE
+        - task_key: src_ft_custo_operacional
+          depends_on:
+            - task_key: src_dm_motivo
+            - task_key: src_dm_canal
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/gold/src_ft_custo_operacional
+            source: WORKSPACE
+        - task_key: src_ft_atendimento_geral
+          depends_on:
+            - task_key: src_dm_chamado
+            - task_key: src_dm_canal
+            - task_key: src_dm_motivo
+            - task_key: src_dm_cliente
+            - task_key: src_dm_atendente
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/gold/src_ft_atendimento_geral
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED

@@ -1,0 +1,12 @@
+resources:
+  jobs:
+    V_Credit_SRC_01_Bronze_Layer:
+      name: V-Credit SRC - 01 Bronze Layer
+      tasks:
+        - task_key: ingestion_landing_to_bronze
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/bronze/ingestion_landing_to_bronze
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED

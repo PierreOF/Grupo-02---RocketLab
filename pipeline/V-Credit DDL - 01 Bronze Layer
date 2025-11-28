@@ -1,0 +1,11 @@
+resources:
+  jobs:
+    V_Credit_DDL_01_Bronze_Layer:
+      name: V-Credit DDL - 01 Bronze Layer
+      tasks:
+        - task_key: ddl_tabelas_bronze
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/ddl/bronze/ddl_tabelas_bronze
+            source: WORKSPACE
+      queue:
+        enabled: true

@@ -1,0 +1,45 @@
+resources:
+  jobs:
+    V_Credit_SRC_04_Curated_Layer:
+      name: V-Credit SRC - 04 Curated Layer
+      email_notifications:
+        on_success:
+          - joaogabrielaraujo30@gmail.com
+        on_failure:
+          - joaogabrielaraujo30@gmail.com
+      tasks:
+        - task_key: src_vw_dm_atendente
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/curated/vw_dm_atendente
+            source: WORKSPACE
+        - task_key: src_vw_dm_canal
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/curated/vw_dm_canal
+            source: WORKSPACE
+        - task_key: src_vw_dm_chamado
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/curated/vw_dm_chamado
+            source: WORKSPACE
+        - task_key: src_vw_dm_cliente
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/curated/vw_dm_cliente
+            source: WORKSPACE
+        - task_key: src_vw_dm_motivo
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/curated/vw_dm_motivo
+            source: WORKSPACE
+        - task_key: src_vw_ft_atendimento_geral
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/curated/vw_ft_atendimento_geral
+            source: WORKSPACE
+        - task_key: src_vw_ft_custo_operacional
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/curated/vw_ft_custo_operacional
+            source: WORKSPACE
+        - task_key: src_vw_ft_performance_agente
+          notebook_task:
+            notebook_path: /Workspace/Users/joaogabrielaraujo30@gmail.com/Grupo-02-RocketLab/src/curated/vw_ft_performance_agente
+            source: WORKSPACE
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED
