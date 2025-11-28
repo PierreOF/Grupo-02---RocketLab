@@ -60,3 +60,21 @@ Estrategia de validacao, auditoria e monitoramento da qualidade dos dados.
 - **Banco Origem**: Supabase (PostgreSQL)
 - **ETL**: Fivetran
 - **BI**: Power BI
+
+## Informações do banco
+```
+host:
+db.tlbwpktqbsnopquoszco.supabase.co
+
+port:
+5432
+
+database:
+postgres
+
+user:
+postgres
+SENHA:
+
+3XrljpUjq5S3JdFh
+```
