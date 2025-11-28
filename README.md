@@ -3,9 +3,10 @@
 Bem-vindo a documentacao completa do projeto de Data Lakehouse da V-Credit. Esta documentacao fornece uma visao abrangente da arquitetura, processos e decisoes tecnicas do projeto.
 
 ## Links do Grupo 2
-* [excalidraw](https://excalidraw.com/#room=155f71a11a4c58eb80e4,ToNOtl9yxLZZQQoi7tVE6A)
+* [Arquitetura do Sistema](https://excalidraw.com/#room=155f71a11a4c58eb80e4,ToNOtl9yxLZZQQoi7tVE6A)
 * [dicionário de dados](https://docs.google.com/spreadsheets/d/1A_ZCraoZs97ySkYHRmj2wAcLwEFpf-EljVoA4hD-2VU/edit?gid=1419684504#gid=1419684504)
 * [relatório das dailys](https://docs.google.com/document/d/16cR93gWBPUY5p74dm8d3jnf8Mi2HiF7qI5Q_kfNKUoc/edit?usp=sharing)
+* [Proposta de solução](https://docs.google.com/document/d/1nLOW8hzSt6CcC94RLKzp7kIRkY869Hcc0Z6qGIhWgUg/edit?tab=t.0)
 
 
 ## Indice da Documentacao
