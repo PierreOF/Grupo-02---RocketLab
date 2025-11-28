@@ -40,22 +40,15 @@ Implementar uma arquitetura de dados moderna (Medallion Architecture) que permit
 ### 1. Custos Elevados (Gerente Financeiro)
 **Problema**: "Os custos do atendimento tem contribuido de forma significativa nas despesas. Precisamos cortar essa despesa excessiva."
 
-**Evidencia**: Motivos de baixa criticidade (ex: Consulta de limite, Consulta de Saldo) sendo atendidos por canais humanos, gerando desperdicio de ~29% do orcamento operacional.
-
 ### 2. Queda na Satisfacao (Diretora de Marketing)
 **Problema**: "O coeficiente de satisfacao era 85%, mas sentimos uma piora recente. Fatores externos?"
-
-**Evidencia**: CSAT caiu para 2.98/5.0. O problema nao e externo (mercado), e interno (fila). Existe correlacao inversa perfeita: quando tempo de espera sobe, nota desce. 48.7% dos clientes estao tendo experiencia negativa.
 
 ### 3. Filas Longas (Coordenadora de CS)
 **Problema**: "Alto tempo medio de atendimento. Muitos clientes aguardam mais do que o esperado. Atendentes nao capacitados."
 
-**Evidencia**: A media global de espera e "mentirosa" (baixa) porque Bots atendem instantaneamente. No atendimento humanizado, a fila chega a 8min37s, quebrando a operacao.
 
 ### 4. Chatbot Ineficaz (Diretor de TI)
 **Problema**: "Nosso chatbot nao resolve a maior parte das solicitacoes. Muitos usuarios sao analfabetos digitais."
-
-**Evidencia**: Taxa de transbordo de 38% (4 em cada 10 atendimentos iniciados no bot sao transferidos para humano). Publico senior (60+) tem a maior taxa de abandono do canal digital.
 
 ## Stakeholders
 
@@ -66,14 +59,6 @@ Implementar uma arquitetura de dados moderna (Medallion Architecture) que permit
 | Coordenadora de CS | Customer Success | Otimizacao de processos operacionais |
 | Diretor de TI | Tecnologia | Efetividade da automacao |
 
-## Resultados Esperados
-
-### Metricas de Sucesso
-
-1. **Reducao de Custos**: Identificar economia potencial de 29% do orcamento de atendimento
-2. **Melhoria de CSAT**: Elevar nota de 2.98 para meta de 4.25+ (85%)
-3. **Reducao de Fila**: Diminuir tempo medio de espera humanizado de 8min37s para < 3min
-4. **Eficiencia do Bot**: Reduzir taxa de transbordo de 38% para < 20%
 
 ### Entregas do Projeto
 
